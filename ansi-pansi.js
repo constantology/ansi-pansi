@@ -8,7 +8,7 @@ var code = {
 	bg_black : 40, bg_red : 41, bg_green  : 42, bg_yellow : 43, bg_blue : 44, bg_magenta : 45, bg_cyan : 46, bg_white : 47
 };
 
-exports = function ansi_pansi( str, colour ) {
+module.exports = function ansi_pansi( str, colour ) {
 	var f = colour.split( /[\s\+]/ ).reduce( function( s, a ) { return ( a in code ) ? s += code[a] + ';' : s; }, '' );
 	return ( f.length ? '\033[' + f + 'm' : f ) + str + '\033[0m';
 };
