@@ -1,0 +1,20 @@
+{
+	"author"          : {
+		"name"        : "constantology",
+		"email"       : "constantology@gmail.com",
+		"url"         : "http://muigui.com"
+	},
+	"description"     : "Basic ansi formatting, foreground and background colours for use with CLIs.",
+	"keywords"        : ["ansi", "color", "colour", "cli", "console"],
+	"licenses"        : [ {
+		"type"        : "MIT",
+	     "url"        : "https://raw.github.com/constantology/ansi-pansi/master/LICENSE"
+	} ],
+	"main"            : "./ansi-pansi.js",
+	"name"            : "ansi-pansi",
+	"repository"      : {
+		"type"        : "git",
+		"url"         : "git@github.com:constantology/ansi-pansi.git"
+	},
+	"version"         : "0.0.1"
+}
