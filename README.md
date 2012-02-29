@@ -17,7 +17,9 @@ Basic ansi formatting, foreground and background colours for use with CLIs.
    var ansiformat = require( 'ansi-pansi' );
 
    console.log( ansiformat( 'foo', 'bold blue bg_yellow' ) );
-   // prints => 'foo' to the console in blue, bold on a yellow background.
+   // prints => 'foo' to the console in blue, bold on a yellow background.\
+
+   ansiformat.clear(); // same as executing – $> clear – from the command line
 
 ```
 
@@ -25,7 +27,7 @@ Basic ansi formatting, foreground and background colours for use with CLIs.
 You can use the below codes concatenated with either a plus `+` or a space ` ` character as shown in the example above.
 
 ### formatting
-`bold`, `italic`, `underline`, `blink`, `reverse`, `hidden`.
+`bold`, `italic`, `underline`, `blink`, `reverse`, `hide`.
 
 ### foreground colours
 `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, `white`
