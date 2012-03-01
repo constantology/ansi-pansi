@@ -26,8 +26,10 @@ Basic ansi formatting, foreground and background colours for use with CLIs.
 ## formatting and colour options
 You can use the below codes concatenated with either a plus `+` or a space ` ` character as shown in the example above.
 
+**NOTE: ** Not all formatting across all CLIs.
+
 ### formatting
-`bold`, `italic`, `underline`, `blink`, `reverse`, `hide`.
+`bold`, `faint`, `italic`, `underline`, `blink`, `blinkfast`, `invert`, `conceal`.
 
 ### foreground colours
 `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, `white`
