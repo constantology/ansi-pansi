@@ -29,7 +29,7 @@ You can use the below codes concatenated with either a plus `+` or a space ` ` c
 **NOTE: ** Not all formatting across all CLIs.
 
 ### formatting
-`bold`, `faint`, `italic`, `underline`, `blink`, `blinkfast`, `invert`, `conceal`.
+`bold`, `faint`, `italic`, `underline`, `blink`, `blinkfast`, `invert`, `hide`, `strike`
 
 ### foreground colours
 `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, `white`
