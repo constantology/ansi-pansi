@@ -14,28 +14,49 @@ Basic ansi formatting, foreground and background colours for use with CLIs.
 
 ```javascript
 
-   var ansiformat = require( 'ansi-pansi' );
+   var ansiformat = require( 'ansi-pansi' ),
+       foo        = ansiformat( 'foo' );
 
-   console.log( ansiformat( 'foo', 'bold blue bg_yellow' ) );
-   // prints => 'foo' to the console in blue, bold on a yellow background.\
+   console.log( foo.bold().blue().background().yellow().toString() );
+   // logs in bold, blue text on a yellow background => foo
+
+   console.log( foo.concat( '\nbar' ).italic().text().white().background().red().toString() );
+   // logs in bold, blue text on a yellow background => foo
+   // logs in italic, white text on a red background => bar
 
    ansiformat.clear(); // same as executing – $> clear – from the command line
 
 ```
 
 ## formatting and colour options
-You can use the below codes concatenated with either a plus `+` or a space ` ` character as shown in the example above.
+All the options below are methods on the instance returned by calling `ansiformat`.
 
 **NOTE: ** Not all formatting across all CLIs.
 
 ### formatting
 `bold`, `faint`, `italic`, `underline`, `blink`, `blinkfast`, `invert`, `hide`, `strike`
 
-### foreground colours
+### views
+`background`, `text`
+
+**NOTE:** All colours are automaticallu assigned to `text` unless you call `background` first. Once a background colour is set, `text` is called to allow setting the text colour.
+
+#### Example:
+
+``` javascript
+
+   var ansiformat = require( 'ansi-pansi' ),
+       str        = ansiformat( 'lorem ipsum ' );             // string
+
+   str.background().red().white()                             // format above text to be white on a red background
+   str.concat( ' dolor sit amet' ).red().background().white() // concatenate text and format it with red text on a white background
+
+```
+
+### colours
 `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, `white`
 
-### background colours
-`bg_black`, `bg_red`, `bg_green`, `bg_yellow`, `bg_blue`, `bg_magenta`, `bg_cyan`, `bg_white`
+**NOTE:** When assigning a colour it will automatically be assigned as the `text` colour **unless** you call `background` first.
 
 ## License
 
