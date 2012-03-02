@@ -2,25 +2,29 @@ var colours = { black : 0, red   : 1, green  : 2, yellow    : 3, blue  : 4, mage
 	formats = { bold  : 1, faint : 2, italic : 3, underline : 4, blink : 5, blinkfast : 5, invert : 7, hide  : 8, strike : 9 },
 	views   = { background : '4', text : '3' };
 
+[[1,31,4], ['string']]
+[[],['foo']]
 function AnsiPansi( str ) {
-	this.current = []; this.output = [];
-	this.concat( str );
+	this.formats = []; this.output = [];
+
+	this.reset().concat( str );
 }
 
 !function( P ) {
 	function has( o, k ) { return Object.prototype.hasOwnProperty.call( o, k ); }
 	function setColour( v ) { return function() {
 		this.view || this.text();
-		this.current.push( this.view + v );
+		this.current[0].push( this.view + v );
 		return this.text();
 	}; }
-	function setFormat( v ) { return function() { this.current.push( v ); return this; }; }
-	function setView( v )   { return function() { this.view = v;          return this; }; }
-	function update( ansi ) {
-		!ansi.current.length || ansi.output.push( '\033[' + ansi.current.join( ';' ) + 'm' );
-								ansi.output.push( '' + ( ansi.str || '' ) );
-		ansi.reset().str = '';
-		return ansi;
+	function setFormat( v ) { return function() { this.current[0].push( v ); return this; }; }
+	function setView( v )   { return function() { this.view = v;             return this; }; }
+	function tostring( s, v )  {
+		switch ( Object.prototype.toString.call( v ) ) {
+			case '[object String]' : s += v; break;
+			case '[object Array]'  : s += ( s.length ? ' ' : '' ) + '\033[' + v[0].join( ';' ) + 'm' + v[1].join( ' ' ); break;
+		}
+		return s;
 	}
 
 	var k;
@@ -29,13 +33,21 @@ function AnsiPansi( str ) {
 	for ( k in views   ) !has( views,   k ) || ( P[k] = setView( views[k] ) );
 	for ( k in colours ) !has( colours, k ) || ( P[k] = setColour( colours[k] ) );
 
-	P.concat = function( str ) {
-		update( this ).current = [];
-		this.str     = str || '';
+	P.concat   = function( str ) {
+		this.current || ( this.current = [[],[]] );
+		this.current[1].push( str );
 		return this;
 	};
-	P.reset    = function() { this.output.push( '\033[0m' ); return this; };
-	P.toString = function() { return update( this ).output.join( '' ); };
+	P.reset    = function() {
+		if ( this.current ) {
+			this.output.push( this.current );
+			delete this.current;
+		}
+		this.output.push( '\033[0m' );
+		this.current = [[], []];
+		return this;
+	};
+	P.toString = function() { return tostring( this.output.reduce( tostring, '' ), this.current ); };
 
 }( AnsiPansi.prototype = Object.create( null ) );
 

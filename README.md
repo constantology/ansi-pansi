@@ -14,24 +14,77 @@ Basic ansi formatting, foreground and background colours for use with CLIs.
 
 ```javascript
 
-   var ansiformat = require( 'ansi-pansi' ),
-       foo        = ansiformat( 'foo' );
+   var ansi = require( 'ansi-pansi' ),
+       foo  = ansi( 'foo' );
 
    console.log( foo.bold().blue().background().yellow().toString() );
    // logs in bold, blue text on a yellow background => foo
 
-   console.log( foo.concat( '\nbar' ).italic().text().white().background().red().toString() );
+   console.log( foo.reset().concat( '\nbar' ).italic().text().white().background().red().toString() );
    // logs in bold, blue text on a yellow background => foo
    // logs in italic, white text on a red background => bar
 
-   ansiformat.clear(); // same as executing – $> clear – from the command line
+   ansi.clear(); // same as executing – $> clear – from the command line
 
 ```
 
-## formatting and colour options
-All the options below are methods on the instance returned by calling `ansiformat`.
+## API
+The following convenience methods are available on the `AnsiPansi` instance returned by the `ansi` method.
+
+### concat( string:String ):this
+Concatenated the passed `string` to the current String. Any formatting options already set are still valid.
+
+#### Example:
+
+```javascript
+
+   var ansi = require( 'ansi-pansi' ),
+       foo = ansi( 'foo' );
+
+   foo.red().bold();    // red and bold formatting is applied to 'foo'
+   foo.concat( 'bar' ); // red and bold formatting is ALSO applied to 'bar'
+
+```
+
+### reset():this
+Resets the formatting on the current instance, so any new Strings which are concatenated to it will not have any previous formatting applied.
+
+#### Example:
+
+```javascript
+
+   var ansi = require( 'ansi-pansi' ),
+       foo = ansi( 'foo' );
+
+   foo.red().bold();                    // red and bold formatting is applied to 'foo'
+   foo.concat( 'bar' );                 // red and bold formatting is ALSO applied to 'bar'
+   foo.reset().concat( 'lorem ipsum' ); // no formatting currently applied to 'lorem ipsum'
+
+
+```
+
+### toString():ANSIFormattedString
+Returns the ANSI formatted String created.
+
+#### Example:
+
+```javascript
+
+   var ansi = require( 'ansi-pansi' ),
+       foo = ansi( 'foo' );
+
+   foo.red().bold().concat( 'bar' );
+   foo.concat( 'lorem ipsum' ).italic().blue();
+
+   foo.toString(); // returns => '\u001b[0m\u001b[1;31mfoo bar\u001b[0m \u001b[3;34mlorem ipsum\u001b[0m\u001b[m'
+
+```
+
+## API:Formatting
+All the options below are methods on the `AnsiPansi` instance returned by calling `ansi`.
 
 **NOTE: ** Not all formatting across all CLIs.
+
 
 ### formatting
 `bold`, `faint`, `italic`, `underline`, `blink`, `blinkfast`, `invert`, `hide`, `strike`
@@ -45,8 +98,8 @@ All the options below are methods on the instance returned by calling `ansiforma
 
 ``` javascript
 
-   var ansiformat = require( 'ansi-pansi' ),
-       str        = ansiformat( 'lorem ipsum ' );             // string
+   var ansi = require( 'ansi-pansi' ),
+       str  = ansi( 'lorem ipsum ' );                         // string
 
    str.background().red().white()                             // format above text to be white on a red background
    str.concat( ' dolor sit amet' ).red().background().white() // concatenate text and format it with red text on a white background
