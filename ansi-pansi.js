@@ -2,8 +2,6 @@ var colours = { black : 0, red   : 1, green  : 2, yellow    : 3, blue  : 4, mage
 	formats = { bold  : 1, faint : 2, italic : 3, underline : 4, blink : 5, blinkfast : 5, invert : 7, hide  : 8, strike : 9 },
 	views   = { background : '4', text : '3' };
 
-[[1,31,4], ['string']]
-[[],['foo']]
 function AnsiPansi( str ) {
 	this.formats = []; this.output = [];
 
@@ -18,7 +16,7 @@ function AnsiPansi( str ) {
 		return this.text();
 	}; }
 	function setFormat( v ) { return function() { this.current[0].push( v ); return this; }; }
-	function setView( v )   { return function() { this.view = v;             return this; }; }
+	function setView( v )   { return function() { this.view = v; return this; }; }
 	function tostring( s, v )  {
 		switch ( Object.prototype.toString.call( v ) ) {
 			case '[object String]' : s += v; break;
