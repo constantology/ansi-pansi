@@ -20,7 +20,7 @@ function AnsiPansi( str ) {
 	function tostring( s, v )  {
 		switch ( Object.prototype.toString.call( v ) ) {
 			case '[object String]' : s += v; break;
-			case '[object Array]'  : s += ( s.length ? ' ' : '' ) + '\033[' + v[0].join( ';' ) + 'm' + v[1].join( ' ' ); break;
+			case '[object Array]'  : s += '\033[' + v[0].join( ';' ) + 'm' + v[1].join( '' ); break;
 		}
 		return s;
 	}
