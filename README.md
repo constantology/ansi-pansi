@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/constantology/ansi-pansi.png)](http://travis-ci.org/constantology/ansi-pansi)
 # ansi pansi
 
 Basic ansi formatting, foreground and background colours for use with CLIs.
